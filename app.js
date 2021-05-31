@@ -1,6 +1,13 @@
 const express = require('express')
 const request = require('request')
 const app = express()
+
+//This configures my environment variables 
+//Special type of variables defined in some other files
+//which needs do be hidden
+const dotenv = require('dotenv')
+dotenv.config()
+
 //Middlewares
 //Set this property (property_name , value)
 app.set("view engine","ejs")
@@ -30,7 +37,7 @@ app.get('/dummy',(req,res)=>{
 app.get('/result',(req,res)=>{
     console.log(req.query)
     //res.send(`You searched for ${req.query.movieName}`)
-    const url = ` http://www.omdbapi.com/?apikey=6dc12f4a&s=${req.query.movieName}`
+    const url = ` http://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${req.query.movieName}`
     request(url , function(error , response , body){
         if(!error && response.statusCode === 200){
             const data = JSON.parse(body)
@@ -44,7 +51,7 @@ app.get('/result',(req,res)=>{
 })
 
 app.get('/result/:id',(req,res)=>{
-    const url = ` http://www.omdbapi.com/?apikey=6dc12f4a&i=${req.params.id}`
+    const url = ` http://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${req.params.id}`
     request(url , function(error , response , body){
         if(!error && response.statusCode === 200){
             const data = JSON.parse(body)
