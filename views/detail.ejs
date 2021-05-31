@@ -1,0 +1,21 @@
+<!-- 
+    <% %> -- execute that code only (run some function inside it)
+    <%= %> -- embedd that variable directly into HTML
+
+ -->
+<%- include("./partials/header")%> 
+<div class="container">
+    <%if(data.Rated === 'PG-13'){%>
+        <div class="alert alert-warning" role="alert">
+            Watch with your parents
+        </div>
+    <%}%>
+    <h1><%=data.Title%></h1>
+    <p><%=data.Plot%></p>
+    <ul>
+        <%data['Ratings'].forEach(function(rating){%>
+            <li><%=rating.Source%> - <%=rating.Value%></li>
+        <%})%>
+    </ul>
+</div>
+<%- include("./partials/footer")%> 
